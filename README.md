@@ -1,6 +1,3 @@
-# backend-system-design-task-manager
-Backend system design with REST, GraphQl, gRPC, PostgreSQL and Docker 
-
 # Backend System Design - Task Manager
 
 This project demonstrates the design of a simple backend system for a Task Manager application.
