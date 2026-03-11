@@ -1,6 +1,3 @@
-
----
-
 # GraphQL_Design.md
 
 GraphQL is a query language for APIs and a runtime for executing those queries. It allows clients (frontend or other services) to request exactly the data they need from the server, nothing more and nothing less.
