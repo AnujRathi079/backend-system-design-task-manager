@@ -1,60 +1,57 @@
+-- Users Table
 CREATE TABLE users (
- id SERIAL PRIMARY KEY,
- name VARCHAR(100),
- email VARCHAR(150)
+id SERIAL PRIMARY KEY,
+name VARCHAR(100),
+email VARCHAR(100) UNIQUE,
+password_hash TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Tasks Table
 CREATE TABLE tasks (
- id SERIAL PRIMARY KEY,
- title VARCHAR(255),
- description TEXT,
- status VARCHAR(20),
- user_id INT REFERENCES users(id)
+id SERIAL PRIMARY KEY,
+title VARCHAR(255),
+description TEXT,
+status VARCHAR(50),
+priority VARCHAR(50),
+created_by INT,
+assigned_to INT,
+due_date DATE,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (created_by) REFERENCES users(id),
+FOREIGN KEY (assigned_to) REFERENCES users(id)
 );
 
-CREATE TABLE comments (
- id SERIAL PRIMARY KEY,
- message TEXT,
- task_id INT REFERENCES tasks(id)
+-- Task Comments
+CREATE TABLE task_comments (
+id SERIAL PRIMARY KEY,
+task_id INT REFERENCES tasks(id),
+user_id INT REFERENCES users(id),
+comment TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-# When the container runs:
+-- Tags
+CREATE TABLE tags (
+id SERIAL PRIMARY KEY,
+name VARCHAR(50)
+);
 
-PostgreSQL starts
+-- Task Tags
+CREATE TABLE task_tags (
+task_id INT REFERENCES tasks(id),
+tag_id INT REFERENCES tags(id),
+PRIMARY KEY (task_id, tag_id)
+);
 
-Database taskmanager is created
+-- Seed Data
+INSERT INTO users (name,email,password_hash)
+VALUES
+('Anuj','anuj@gmail.com','hashed123'),
+('Rahul','rahul@gmail.com','hashed456');
 
-User admin is created
-
-init.sql runs automatically
-
-Tables are created
-
-# How its Works
-
-Docker Build
-     ↓
-Postgres Image Downloaded
-     ↓
-Container Starts
-     ↓
-Database taskmanager Created
-     ↓
-User admin Created
-     ↓
-init.sql Executed
-     ↓
-Tables Created
-
-# Example 
-
-docker build -t taskmanager-db .
-docker run -d -p 5432:5432 taskmanager-db
-
-
-| Command           | Meaning                      |
-| ----------------- | ---------------------------- |
-| docker build      | builds image from Dockerfile |
-| -t taskmanager-db | image name                   |
-| docker run        | starts container             |
-| -p 5432:5432      | expose postgres port         |
+INSERT INTO tags (name)
+VALUES
+('bug'),
+('feature'),
+('urgent');

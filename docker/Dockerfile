@@ -65,3 +65,11 @@ This line copies a file called init.sql into the container.
 # Location inside container 
 /docker-entrypoint-initdb.d/
 PostgreSQL automatically executes any .sql file placed in this folder when the container starts for the first time.
+
+| Line              | Meaning                  |
+| ----------------- | ------------------------ |
+| FROM postgres:15  | PostgreSQL base image    |
+| POSTGRES_DB       | database auto create     |
+| POSTGRES_USER     | database user            |
+| POSTGRES_PASSWORD | database password        |
+| COPY init.sql     | startup par SQL run hoga |
