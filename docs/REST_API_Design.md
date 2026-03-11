@@ -21,7 +21,7 @@ DELETE /tasks/{id}
 GET /tasks?status=open
 GET /tasks?priority=high
 
-# Comments under tasks
+# Nested Resources
 GET /tasks/{task_id}/comments
 POST /tasks/{task_id}/comments
 
@@ -33,6 +33,7 @@ POST /tags
 POST /tasks/{task_id}/tags/{tag_id}
 DELETE /tasks/{task_id}/tags/{tag_id}
 
+# Long Running Job
 POST /tasks/export
 
 # Status 
